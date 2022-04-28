@@ -17,7 +17,7 @@ var lastrowindex = s.getLastRow();  //The sheet last row index
     ["Smallb","#1f5ded"]  
   ] */
 
-var TypeClass = [
+var TypeClass = [ //later can add more new manchine to here
   {type:"公司機",color:"#00ffff",num:0},
   {type:"Lease",color:"#02ff01",num:0},
   {type:"Hold",color:"#bb00ff",num:0},
