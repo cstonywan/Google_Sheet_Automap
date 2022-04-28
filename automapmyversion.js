@@ -58,7 +58,7 @@ function automapping() { //main function
   }  
 }
 
-function SearchEngine(){
+function SearchEngine(){ //The Search Engine 
   var value = s.getRange(1,namecolumnindex).getValue();
   console.log("value",value.toString().length)  
   if(!isNaN(value) && value.toString().length < 7){ //index
