@@ -27,7 +27,7 @@ var TypeClass = [ //later can add more new manchine to here
   {type:"Smallb",color:"#1f5ded",num:0} 
 ]
 
-var ShapeClass = [
+var ShapeClass = [ //a object class for the machine shape 
   {shape: 4, optNumRows:2, optNumColumns:2 },
   {shape: '2v', optNumRows:2, optNumColumns:1 },
   {shape: '2h', optNumRows:1, optNumColumns:2 },
