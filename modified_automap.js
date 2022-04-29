@@ -57,9 +57,18 @@ function automapping() { //main function
     }
   }  
 }
- 
+
+function SearchPrompt() {
+  var ui = SpreadsheetApp.getUi();
+  var result = ui.prompt("機台號碼/電話/姓名:",ui.ButtonSet.OK_CANCEL);
+  // Logger.log(result.getResponseText());
+  //  findinfodatarow(result.getResponseText());
+  return result.getResponseText();
+}
+
 function SearchEngine(){
-  var value = s.getRange(1,namecolumnindex).getValue();
+  //var value = s.getRange(1,namecolumnindex).getValue();
+  var value = SearchEngine();
   var index = 0
   
   if(!isNaN(value) && value.toString().length < 7){ //index
@@ -111,7 +120,7 @@ function findinfodatarow(x){
     }
 
     for(var j = 38; j<s.getLastColumn(); j++){
-        Setbackgroundcolor(x,j,"red");
+        Setbackgroundcolor(x,j,"#c9fbff");
     }
 }
  
@@ -223,7 +232,7 @@ function Creattypecaltable(){
   Tablearr.push([Typearray[0],Calnum('')])
   for(var a = 1;  a < Typearray.length; a++){                  
     Tablearr.push([Typearray[a],Calnum(Typearray[a])]);
-    if(!TypeClass.type.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){ //trying adding color to typeclass
+    if(!TypeClass.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){ //trying adding color to typeclass
         TypeClass.push({type:infodata[i][ToppingOut],color:getRandomColor(),num:Calnum(Typearray[a])})
     }         
   }
