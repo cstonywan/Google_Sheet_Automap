@@ -227,14 +227,8 @@ function Creattypecaltable(){
  
   for(var i = 1;  i < lastrowindex; i++){      
     if(!Typearray.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){
-      Typearray.push(infodata[i][ToppingOut])
-      //console.log(infodata[i][ToppingOut]);      
-    }
-    // if(!TypeClass.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){ //trying adding color to typeclass
-    //   TypeClass.push({type:infodata[i][ToppingOut],color:getRandomColor(),num:Calnum(Typearray[a])})
-    //   console.log(infodata[i][ToppingOut],Calnum(Typearray[a]))
-    // }    
-    
+      Typearray.push(infodata[i][ToppingOut])     
+    }    
   }  
  
   Tablearr.push(['','Total'])
@@ -275,7 +269,7 @@ function Cleartable(i,j){
   s.getRange(i,j).clearContent();
   s.getRange(i,j).clearFormat();
 }
- //git test
+  
 function Calnum(type){
   var count = 0;
   for(var i = 0; i < lastrowindex; i++){      
@@ -291,7 +285,6 @@ function Setboarder(x,y){
 }
  
 function Setbackgroundcolor(x,y,color){
-  console.log(x,y,color);
   s.getRange(x,y).setBackground(color);
 }
  
