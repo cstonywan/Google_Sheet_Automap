@@ -1,3 +1,6 @@
+/*
+ By Tony Wan on 2022-04-30
+*/
 var ToppingOut = 42;      // The 封頂 column index
 var namecolumnindex = 37  //The machine name column index
 var mapmaxheight  = 13    //The left hand side map max height
