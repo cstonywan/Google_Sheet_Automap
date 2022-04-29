@@ -6,6 +6,7 @@ var s = SpreadsheetApp.getActive().getSheetByName('CGA GF FLOOR PLAN');
 var mapdata = s.getDataRange().getValues();
 var infodata = s.getDataRange().getValues();
 var lastrowindex = s.getLastRow();  //The sheet last row index
+var Searchresult = 0;
  
   /*var TypeClass = [
     ["公司機","#00ffff"],
@@ -19,12 +20,12 @@ var lastrowindex = s.getLastRow();  //The sheet last row index
  
 var TypeClass = [
   {type:"公司機",color:"#00ffff",num:0},
-  {type:"Lease",color:"#02ff01",num:0},
+  {type:"4000租",color:"#02ff01",num:0},
   {type:"Hold",color:"#bb00ff",num:0},
-  {type:"broke",color:"pink",num:0},
+  {type:"壞機",color:"pink",num:0},
   {type:"Exchange",color:"#76b5c5",num:0},
-  {type:"share",color:"#ffff02",num:0},
-  {type:"Smallb",color:"#1f5ded",num:0}
+  {type:"分成機",color:"#ffff02",num:0},
+  {type:"細B",color:"#1f5ded",num:0}
 ]
  
 var ShapeClass = [
@@ -34,7 +35,7 @@ var ShapeClass = [
   {shape: '', optNumRows:1, optNumColumns:1 }
 ]
  
-function automapping() { //main function
+function Automapping() { //main function
  
   for (var i = 1; i <= mapmaxheight; i++) {
     for (var j = 1; j <= mapmaxwidth; j++) {      
@@ -55,7 +56,7 @@ function automapping() { //main function
           }
         }        
     }
-  }  
+  }    
 }
 
 function SearchPrompt() {
@@ -68,11 +69,11 @@ function SearchPrompt() {
 
 function SearchEngine(){
   //var value = s.getRange(1,namecolumnindex).getValue();
-  var value = SearchEngine();
+  var value = SearchPrompt();
   var index = 0
   
   if(!isNaN(value) && value.toString().length < 7){ //index
-        index = value;    
+        index = parseInt(value);    
   }
   else{    
         if(!isNaN(value) && value.toString().length == 8){ //phone
@@ -108,19 +109,23 @@ function SearchEngine(){
             }
         }
     }
-    SearchEnginebyindex(index);
-    findinfodatarow(index);
+    SearchEnginebyindex(index);     
+    Findinfodatarow(parseInt(index) + 1);    
 }
 
-function findinfodatarow(x){
-    for (var i = 1; i < lastrowindex; i++) {  
-        for(var j = 38; j<s.getLastColumn(); j++){
-            Setbackgroundcolor(x,j,"white");
-        }
+function Cleartablebg(){  
+  for (var i = 1; i < lastrowindex; i++) {  
+    for(var j = 39; j<48; j++){
+        Setbackgroundcolor(i,j,"white");
     }
-
-    for(var j = 38; j<s.getLastColumn(); j++){
+  }
+  //Automapping();
+}
+function Findinfodatarow(x){  
+    Cleartablebg();
+    for(var j = 39; j<48; j++){
         Setbackgroundcolor(x,j,"#c9fbff");
+        console.log("x: ",x);
     }
 }
  
@@ -129,14 +134,14 @@ function SearchEnginebyindex(value){
       for (var j = 1; j <= mapmaxwidth; j++) {          
         if (mapdata[i][j] && !isNaN(mapdata[i][j])){
           if(mapdata[i][j] == value){
-            console.log("num",i,j)
+            console.log("in num",i,j)            
             Setbackgroundcolor(i+1,j+1,"red")
           }
         }
         else{
           if (mapdata[i][j] && isNaN(mapdata[i][j])){    
             if(mapdata[i][j] == value){
-              console.log("word",i,j)
+              console.log("word",i,j)              
               Setbackgroundcolor(i+1,j+1,"red")
             }    
           }
@@ -223,18 +228,19 @@ function Creattypecaltable(){
   for(var i = 1;  i < lastrowindex; i++){      
     if(!Typearray.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){
       Typearray.push(infodata[i][ToppingOut])
-      //console.log(infodata[i][ToppingOut]);
+      //console.log(infodata[i][ToppingOut]);      
     }
+    // if(!TypeClass.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){ //trying adding color to typeclass
+    //   TypeClass.push({type:infodata[i][ToppingOut],color:getRandomColor(),num:Calnum(Typearray[a])})
+    //   console.log(infodata[i][ToppingOut],Calnum(Typearray[a]))
+    // }    
     
   }  
  
   Tablearr.push(['','Total'])
   Tablearr.push([Typearray[0],Calnum('')])
   for(var a = 1;  a < Typearray.length; a++){                  
-    Tablearr.push([Typearray[a],Calnum(Typearray[a])]);
-    if(!TypeClass.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){ //trying adding color to typeclass
-        TypeClass.push({type:infodata[i][ToppingOut],color:getRandomColor(),num:Calnum(Typearray[a])})
-    }         
+    Tablearr.push([Typearray[a],Calnum(Typearray[a])]);     
   }
  
   for(var i = 1; i < Tablearr.length;i++){
@@ -269,7 +275,7 @@ function Cleartable(i,j){
   s.getRange(i,j).clearContent();
   s.getRange(i,j).clearFormat();
 }
- 
+ //git test
 function Calnum(type){
   var count = 0;
   for(var i = 0; i < lastrowindex; i++){      
@@ -285,7 +291,8 @@ function Setboarder(x,y){
 }
  
 function Setbackgroundcolor(x,y,color){
-  return s.getRange(x,y).setBackground(color);
+  console.log(x,y,color);
+  s.getRange(x,y).setBackground(color);
 }
  
 
