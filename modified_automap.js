@@ -215,13 +215,17 @@ function Creattypecaltable(){
     if(!Typearray.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){
       Typearray.push(infodata[i][ToppingOut])
       //console.log(infodata[i][ToppingOut]);
-    }      
+    }
+    
   }  
  
   Tablearr.push(['','Total'])
   Tablearr.push([Typearray[0],Calnum('')])
   for(var a = 1;  a < Typearray.length; a++){                  
     Tablearr.push([Typearray[a],Calnum(Typearray[a])]);
+    if(!TypeClass.type.includes(infodata[i][ToppingOut]) && infodata[i][ToppingOut] != ''){ //trying adding color to typeclass
+        TypeClass.push({type:infodata[i][ToppingOut],color:getRandomColor(),num:Calnum(Typearray[a])})
+    }         
   }
  
   for(var i = 1; i < Tablearr.length;i++){
@@ -276,3 +280,11 @@ function Setbackgroundcolor(x,y,color){
 }
  
 
+function getRandomColor() {
+    var letters = '0123456789abcdef';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
