@@ -82,7 +82,7 @@ function SearchEngine(){
   else{    
         if(!isNaN(value) && value.toString().length == 8){ //phone
             for (var i = 1; i < lastrowindex; i++) {  
-                console.log("(mapdata[i][40]",i,mapdata[i][40])      
+                //console.log("(mapdata[i][40]",i,mapdata[i][40])      
                 if(mapdata[i][40].toString().length > 8){
                     if(mapdata[i][40].toString().indexOf(value.toString()) > -1){                            
                         SearchEnginebyindex(i);     
@@ -108,7 +108,7 @@ function SearchEngine(){
                         }
                     }
                     else{
-                      console.log("value",mapdata[i][39].toString() )                                                                                                            
+                      //console.log("value",mapdata[i][39].toString() )                                                                                                            
                         if(mapdata[i][39].toString().toLocaleLowerCase().indexOf(value.toString().toLocaleLowerCase()) > -1){                           
                             SearchEnginebyindex(i);     
                             Findinfodatarow(i+1);    
@@ -141,7 +141,7 @@ function SearchEnginebyindex(value){
       for (var j = 1; j <= mapmaxwidth; j++) {          
         if (mapdata[i][j] && !isNaN(mapdata[i][j])){
           if(mapdata[i][j] == value){
-            console.log("in num",i,j)            
+            //console.log("in num",i,j)            
             Setbackgroundcolor(i+1,j+1,"red")
             s.getRange(5,36).setValue(i+1);
             s.getRange(5,37).setValue(j+1);
@@ -150,7 +150,7 @@ function SearchEnginebyindex(value){
         else{
           if (mapdata[i][j] && isNaN(mapdata[i][j])){    
             if(mapdata[i][j] == value){
-              console.log("word",i,j)              
+              //console.log("word",i,j)              
               Setbackgroundcolor(i+1,j+1,"red")
               s.getRange(5,36).setValue(i+1);
               s.getRange(5,37).setValue(j+1);
