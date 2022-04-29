@@ -5,7 +5,7 @@ var mapmaxwidth = 33      //The left hand side map max width
 var s = SpreadsheetApp.getActive().getSheetByName('CGA GF FLOOR PLAN');
 var mapdata = s.getDataRange().getValues();
 var infodata = s.getDataRange().getValues();
-var lastrowindex = s.getLastRow();  //The sheet last row index
+var lastrowindex = s.getLastRow();  //The sheet last row index 
 var Searchresult = 0;
  
   /*var TypeClass = [
@@ -75,7 +75,7 @@ function SearchEngine(){
   s.getRange(4,namecolumnindex).setFontSize(14);
   SetHorizontalAlignment(4,namecolumnindex);
   
-  if(!isNaN(value) && value.toString().length < 7){ //index        
+  if(!isNaN(value) && value.toString().length < 7){ //check for index        
     SearchEnginebyindex(parseInt(value));     
     Findinfodatarow(parseInt(value)+ 1);  
   }
