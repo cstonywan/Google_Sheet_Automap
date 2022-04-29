@@ -1,4 +1,4 @@
-var ToppingOut = 42;      // The 封頂 column index
+var ToppingOut = 42;      //The 封頂 column index
 var namecolumnindex = 37  //The machine name column index
 var mapmaxheight  = 13    //The left hand side map max height
 var mapmaxwidth = 33      //The left hand side map max width
@@ -6,7 +6,6 @@ var s = SpreadsheetApp.getActive().getSheetByName('CGA GF FLOOR PLAN');
 var mapdata = s.getDataRange().getValues();
 var infodata = s.getDataRange().getValues();
 var lastrowindex = s.getLastRow();  //The sheet last row index
-var Searchresult = 0;
  
   /*var TypeClass = [
     ["公司機","#00ffff"],
@@ -34,8 +33,9 @@ var ShapeClass = [
   {shape: '2h', optNumRows:1, optNumColumns:2 },
   {shape: '', optNumRows:1, optNumColumns:1 }
 ]
- 
-function Automapping() { //main function
+
+/*Main function for mapping the machine position by using index*/
+function Automapping() {
  
   for (var i = 1; i <= mapmaxheight; i++) {
     for (var j = 1; j <= mapmaxwidth; j++) {      
@@ -63,7 +63,7 @@ function SearchPrompt() {
   var ui = SpreadsheetApp.getUi();
   var result = ui.prompt("機台號碼/電話/姓名:",ui.ButtonSet.OK_CANCEL);
   // Logger.log(result.getResponseText());
-  //  findinfodatarow(result.getResponseText());
+  // findinfodatarow(result.getResponseText());
   return result.getResponseText();
 }
 
@@ -78,7 +78,7 @@ function SearchEngine(){
   else{    
         if(!isNaN(value) && value.toString().length == 8){ //phone
             for (var i = 1; i < lastrowindex; i++) {  
-                console.log("(mapdata[i][40]",i,mapdata[i][40])      
+                //console.log("(mapdata[i][40]",i,mapdata[i][40])      
                 if(mapdata[i][40].toString().length > 8){
                     if(mapdata[i][40].toString().indexOf(value.toString()) > -1){                            
                         index = i;
@@ -95,7 +95,7 @@ function SearchEngine(){
             if(isNaN(value)){
                 for (var i = 1; i < lastrowindex; i++) {  
                     if(value.toString().match(/[\u3400-\u9FBF]/)){
-                        console.log("value",mapdata[i][39].toString())
+                        //console.log("value",mapdata[i][39].toString())
                         if(mapdata[i][39].toString().indexOf(value.toString()) > -1){                              
                             index = i;
                         }
@@ -125,7 +125,7 @@ function Findinfodatarow(x){
     Cleartablebg();
     for(var j = 39; j<48; j++){
         Setbackgroundcolor(x,j,"#c9fbff");
-        console.log("x: ",x);
+        //console.log("x: ",x);
     }
 }
  
@@ -134,14 +134,14 @@ function SearchEnginebyindex(value){
       for (var j = 1; j <= mapmaxwidth; j++) {          
         if (mapdata[i][j] && !isNaN(mapdata[i][j])){
           if(mapdata[i][j] == value){
-            console.log("in num",i,j)            
+            //console.log("in num",i,j)            
             Setbackgroundcolor(i+1,j+1,"red")
           }
         }
         else{
           if (mapdata[i][j] && isNaN(mapdata[i][j])){    
             if(mapdata[i][j] == value){
-              console.log("word",i,j)              
+              //console.log("word",i,j)              
               Setbackgroundcolor(i+1,j+1,"red")
             }    
           }
@@ -240,9 +240,10 @@ function Creattypecaltable(){
   for(var i = 1; i < Tablearr.length;i++){
     Totalsumoftype += Tablearr[i][1];    
   }
-  Tablearr.push(["Total",Totalsumoftype])    
-  for(var i = 0; i < Tablearr.length; i++){
-   
+
+  Tablearr.push(["Total",Totalsumoftype])   
+
+  for(var i = 0; i < Tablearr.length; i++){   
     s.getRange(Tablestartrowindex+i,Tablestartcolindex).activate().setValue(Tablearr[i][0]);  
     if(i<TypeClass.length){
       Setbackgroundcolor(Tablestartrowindex+i+1,Tablestartcolindex,TypeClass[i].color)
@@ -259,12 +260,14 @@ function Settablestyle(x,y,fontsize,fontstyle){
   SetHorizontalAlignment(x,y);
   Setboarder(x,y);
 }
+
 function Cleartypetable(){
   for(var i = 4; i < lastrowindex; i++){
      Cleartable(i,36);
      Cleartable(i,37);
   }
 }
+
 function Cleartable(i,j){    
   s.getRange(i,j).clearContent();
   s.getRange(i,j).clearFormat();
@@ -289,11 +292,11 @@ function Setbackgroundcolor(x,y,color){
 }
  
 
-function getRandomColor() {
+function GetRandomColor() {
     var letters = '0123456789abcdef';
     var color = '#';
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-  }
+}
