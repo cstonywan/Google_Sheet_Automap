@@ -100,6 +100,7 @@ function SearchEngine(){
         }
     }
     SearchEnginebyindex(index);
+    findinfodatarow(index);
 }
 
 function findinfodatarow(x){
@@ -108,7 +109,7 @@ function findinfodatarow(x){
             Setbackgroundcolor(x,j,"white");
         }
     }
-    
+
     for(var j = 38; j<s.getLastColumn(); j++){
         Setbackgroundcolor(x,j,"red");
     }
