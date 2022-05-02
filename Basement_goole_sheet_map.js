@@ -65,7 +65,8 @@ function Automapping() { //main function
           }
         }        
     }
-  }    
+  } 
+  TypeClass =[];   
 }
 
 function display(){
@@ -277,6 +278,8 @@ function Creattypecaltable(){
   Settablestyle(Tablestartrowindex+TypeClass.length,Tablestartcolindex,14,"bold");
   s.getRange(Tablestartrowindex+TypeClass.length,Tablestartcolindex+1).activate().setValue(Totalsumoftype);
   Settablestyle(Tablestartrowindex+TypeClass.length,Tablestartcolindex+1,12,"bold");
+
+  TypeClass = [];
 }
  
 function Settablestyle(x,y,fontsize,fontstyle){
