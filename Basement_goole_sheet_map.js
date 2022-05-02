@@ -7,28 +7,21 @@ var mapdata = s.getDataRange().getValues();
 var infodata = s.getDataRange().getValues();
 var lastrowindex = s.getLastRow();  //The sheet last row index
 var Searchresult = 0;
-var Typetable_startindex = 3;
- 
-  /*var TypeClass = [
-    ["公司機","#00ffff"],
-    ["Lease","#02ff01"],
-    ["Hold","#bb00ff"],
-    ["broke","#ff0000"],
-    ["Exchange","#ff4d00"],
-    ["share","#ffff02"],
-    ["Smallb","#1f5ded"]  
-  ] */
- 
-var TypeClass = [
-  {type:"公司機",color:"#00ffff",num:0},   
-  {type:"4000",color:"#00ff00",num:0},
-  {type:"壞機",color:"red",num:0},
-  {type:"分成",color:"#ffff00",num:0},
-  {type:"Monthly",color:"#0000ff",num:0},
-  {type:"3000",color:"#ff9900",num:0}, 
-  {type:"Hold",color:"#38761d",num:0},
-  {type:"Season",color:"#ea01ff",num:0},
-]
+var Typetable_startindex = 3; // Count table start row index 
+
+
+var TypeClass =[];
+/*加新機加呢到~~~*/ 
+// var TypeClass = [
+//   {type:"公司機",color:"#00ffff",num:0},   
+//   {type:"4000",color:"#00ff00",num:0},
+//   {type:"3000",color:"#ff9900",num:0}, 
+//   {type:"壞機",color:"red",num:0},
+//   {type:"分成",color:"#ffff00",num:0},
+//   {type:"Monthly",color:"#0000ff",num:0},  
+//   {type:"Season",color:"#ea01ff",num:0},
+//   {type:"Hold",color:"#38761d",num:0},
+// ]
  
 var ShapeClass = [
   {shape: 4, optNumRows:2, optNumColumns:2 },
@@ -36,9 +29,23 @@ var ShapeClass = [
   {shape: '2h', optNumRows:1, optNumColumns:2 },
   {shape: '', optNumRows:1, optNumColumns:1 }
 ]
- 
+
+function Mainbasement(){
+  TypeClass = [];
+  Automapping();
+  Creattypecaltable();
+}
+
+function Typeclasscreate(){
+  var maxrownum = s.getRange("AW1:AW").getValues().filter(String).length;
+  for(var i = 1; i <= maxrownum; i++){    
+    TypeClass.push({type:s.getRange(i,Typeclasscolumnindex).getValue(), color:s.getRange(i,Typeclasscolumnindex).getBackground(),num:0})
+    //console.log(s.getRange(i,Typeclasscolumnindex).getValue(),s.getRange(i,Typeclasscolumnindex).getBackground())
+  }
+}
+
 function Automapping() { //main function
- 
+  Typeclasscreate();
   for (var i = 1; i <= mapmaxheight; i++) {
     for (var j = 1; j <= mapmaxwidth; j++) {      
         var x = i + 1;
@@ -146,30 +153,30 @@ function Findinfodatarow(x){
     }
 }
  
-function SearchEnginebyindex(value){
-  for (var i = 1; i <= mapmaxheight; i++) {
-      for (var j = 1; j <= mapmaxwidth; j++) {          
-        if (mapdata[i][j] && !isNaN(mapdata[i][j])){
-          if(mapdata[i][j] == value){
-            console.log("in num",i,j)            
-            Setbackgroundcolor(i+1,j+1,"red")
-            s.getRange(5,36).setValue(i+1);
-            s.getRange(5,37).setValue(j+1);
-          }
-        }
-        else{
-          if (mapdata[i][j] && isNaN(mapdata[i][j])){    
-            if(mapdata[i][j] == value){
-              console.log("word",i,j)              
-              Setbackgroundcolor(i+1,j+1,"red")
-              s.getRange(5,36).setValue(i+1);
-              s.getRange(5,37).setValue(j+1);
-            }    
-          }
-        }        
-      }
-    }
-}
+// function SearchEnginebyindex(value){
+//   for (var i = 1; i <= mapmaxheight; i++) {
+//       for (var j = 1; j <= mapmaxwidth; j++) {          
+//         if (mapdata[i][j] && !isNaN(mapdata[i][j])){
+//           if(mapdata[i][j] == value){
+//             console.log("in num",i,j)            
+//             Setbackgroundcolor(i+1,j+1,"red")
+//             s.getRange(5,36).setValue(i+1);
+//             s.getRange(5,37).setValue(j+1);
+//           }
+//         }
+//         else{
+//           if (mapdata[i][j] && isNaN(mapdata[i][j])){    
+//             if(mapdata[i][j] == value){
+//               console.log("word",i,j)              
+//               Setbackgroundcolor(i+1,j+1,"red")
+//               s.getRange(5,36).setValue(i+1);
+//               s.getRange(5,37).setValue(j+1);
+//             }    
+//           }
+//         }        
+//       }
+//     }
+// }
  
 function Changebacktoname(i,j){
   if(mapdata[mapdata[i][j]][namecolumnindex] != ''){
@@ -240,11 +247,11 @@ function Clearmapcolor(){
 // }
  
 function Creattypecaltable(){
-  var Typearray = ['公司機']
-  var Tablearr = []
   var Tablestartrowindex = Typetable_startindex
   var Tablestartcolindex = 36
   var Totalsumoftype = 0
+
+  Typeclasscreate();
 
   for(var a = 0; a < TypeClass.length;a++){      
     if(a == 0){
@@ -310,11 +317,17 @@ function Setbackgroundcolor(x,y,color){
 }
  
 
-function GetRandomColor() {
-    var letters = 'BCDEF'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * letters.length)];
-    }
-    return color;
+// function GetRandomColor() {
+//     var letters = 'BCDEF'.split('');
+//     var color = '#';
+//     for (var i = 0; i < 6; i++ ) {
+//         color += letters[Math.floor(Math.random() * letters.length)];
+//     }
+//     return color;    
+// }
+
+function Colorcodecheck(){
+  var x = 39;
+  var y = 1;
+  s.getRange(x,y).setValue(s.getRange(x,y).getBackground());
 }
